@@ -1,9 +1,9 @@
 package main
 
 import (
-	"MXY-WEB/MXY"
 	"fmt"
-	"net/http"
+	"runtime"
+	"time"
 )
 
 type Mode struct {
@@ -12,14 +12,37 @@ type Mode struct {
 }
 
 func main()  {
-	 r := MXY.Default()
-	 mode := &Mode{}
-	 r.POST("/", func(c *MXY.Context) {
-	 	c.ShouldBind(mode)
-	 	fmt.Println("mod=",mode)
-		 c.JSON(http.StatusOK,MXY.H{
-		 	"srta":"ok",
-		 })
-	 })
-     r.Run()
+	 //r := MXY.Default()
+	 //mode := &Mode{}
+	 //r.POST("/", func(c *MXY.Context) {
+	 //	c.ShouldBind(mode)
+	 //	fmt.Println("mod=",mode)
+		// c.JSON(http.StatusOK,MXY.H{
+		// 	"srta":"ok",
+		// })
+	 //})
+     //r.Run()
+
+     runtime.GOMAXPROCS(2)
+
+     go func() {
+     	fmt.Println("1")
+	 }()
+
+	go func() {
+		fmt.Println("2")
+	}()
+
+	go func() {
+		fmt.Println("3")
+	}()
+
+
+	time.Sleep(time.Second)
+
+
+	go func() {
+		fmt.Println("4")
+	}()
+
 }
